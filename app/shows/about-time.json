@@ -1,0 +1,11 @@
+{
+    "id": "about-time",
+    "title": "It's About Time",
+    "artists": [
+        {"name":"Sarah Elliot"}
+    ],
+    "release": "Ipsum ipsum ipsum. Sator arepo tenet opera rotas",
+    "works": ["table", "object", "thingy", "display case"],
+    "openingDate":"01/19/14",
+    "closingDate":"01/27/14"
+}

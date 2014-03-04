@@ -1,0 +1,12 @@
+{
+    "id": "extra-bedroom",
+    "title": "Extra Bedroom",
+    "artists": [
+        {"name":"Jojo Li"},
+        {"name":"Devon Costello"}
+    ],
+    "release": "Lorem lorem, ipsum ipsum, everything everything",
+    "works": ["Bed", "Table", "Spill", "Doodad"],
+    "openingDate":"03/16/14",
+    "closingDate":"04/03/14"
+}

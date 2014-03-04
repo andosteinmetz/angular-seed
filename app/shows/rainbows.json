@@ -1,0 +1,14 @@
+{
+    "id": "rainbows",
+    "title": "Rainbows Have Nothing To Hide",
+    "artists": [
+        {"name":"Roger Carmona"},
+        {"name":"Caitlin Keogh"},
+        {"name":"Marley Freeman"},
+        {"name":"Eric Legris"}
+    ],
+    "release": "Lorem ipsum dolor sit amet. Sator arepo tenet opera rotas",
+    "works": ["one", "two", "three", "four"],
+    "openingDate": "07/28/13",
+    "closingDate": "08/05/13"
+}

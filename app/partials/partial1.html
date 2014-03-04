@@ -1,1 +1,10 @@
-<p>This is the partial for view 1.</p>
+<h3>Currently On View</h3>
+
+<h3>Upcoming Shows</h3>
+    <ul>
+    <li ng-repeat="show in shows">
+        <h4><a ng-href="#/show/{{show.id}}">{{show.title}}</a>, {{show.openingDate}} - {{show.closingDate}}</h4>
+        <strong ng-repeat="artist in show.artists">{{artist.name}}{{$last ? '' :', '}}</strong>
+    </li>
+    </ul>
+<h3>Past Shows</h3>
