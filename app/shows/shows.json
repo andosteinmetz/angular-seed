@@ -1,0 +1,43 @@
+[  
+
+{
+     "id": "rainbows",
+     "title": "Rainbows Have Nothing To Hide",
+     "artists": [
+         {"name":"Roger Carmona"},
+         {"name":"Caitlin Keogh"},
+         {"name":"Marley Freeman"},
+         {"name":"Eric Legris"}
+     ],
+     "release": "Lorem ipsum dolor sit amet. Sator arepo tenet opera rotas",
+     "works": ["one", "two", "three", "four"],
+     "openingDate": "2013-07-28",
+     "closingDate": "2013-08-05"
+ },
+
+ {
+     "id": "about-time",
+     "title": "It's About Time",
+     "artists": [
+         {"name":"Sarah Elliot"}
+     ],
+     "release": "Ipsum ipsum ipsum. Sator arepo tenet opera rotas",
+     "works": ["table", "object", "thingy", "display case"],
+     "openingDate":"2014-01-19",
+     "closingDate":"2014-01-27"
+ },
+
+ {
+     "id": "extra-bedroom",
+     "title": "Extra Bedroom",
+     "artists": [
+         {"name":"Jojo Li"},
+         {"name":"Devon Costello"}
+     ],
+     "release": "Lorem lorem, ipsum ipsum, everything everything",
+     "works": ["Bed", "Table", "Spill", "Doodad"],
+     "openingDate":"2014-03-06",
+     "closingDate":"2014-04-03"
+}
+ 
+ ]
