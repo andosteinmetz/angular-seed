@@ -1,10 +1,30 @@
-<h3>Currently On View</h3>
-
-<h3>Upcoming Shows</h3>
+<div>Today: {{today | date : medium}}</div>
+<div ng-if="currentShows">
+    <h3>Currently On View</h3>
     <ul>
-    <li ng-repeat="show in shows">
-        <h4><a ng-href="#/show/{{show.id}}">{{show.title}}</a>, {{show.openingDate}} - {{show.closingDate}}</h4>
-        <strong ng-repeat="artist in show.artists">{{artist.name}}{{$last ? '' :', '}}</strong>
-    </li>
+        <li ng-repeat="show in currentShows">
+            <h4><a ng-href="#/show/{{show.id}}">{{show.title}}</a>, {{show.opening | date : medium}} - {{show.closing | date : medium}}</h4>
+            <strong ng-repeat="artist in show.artists">{{artist.name}}{{$last ? '' :', '}}</strong>
+        </li>
     </ul>
-<h3>Past Shows</h3>
+</div>
+
+<div>
+    <h3>Upcoming Shows</h3>
+    <ul>
+        <li ng-repeat="show in upcomingShows">
+            <h4><a ng-href="#/show/{{show.id}}">{{show.title}}</a>, {{show.opening | date : medium}} - {{show.closing | date : medium}}</h4>
+            <strong ng-repeat="artist in show.artists">{{artist.name}}{{$last ? '' :', '}}</strong>
+        </li>
+    </ul>
+</div>
+
+<div>
+    <h3>Past Shows</h3>
+    <ul>
+        <li ng-repeat="show in pastShows | orderBy:'opening':true">
+            <h4><a ng-href="#/show/{{show.id}}">{{show.title}}</a>, {{show.opening | date : medium}} - {{show.closing | date : medium}}</h4>
+            <strong ng-repeat="artist in show.artists">{{artist.name}}{{$last ? '' :', '}}</strong>
+        </li>
+    </ul>
+</div>

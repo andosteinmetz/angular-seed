@@ -1,6 +1,6 @@
 {
-    "id": "extra-bedroom",
-    "title": "Extra Bedroom",
+    "id": "second-bedroom",
+    "title": "Second Bedroom",
     "artists": [
         {"name":"Jojo Li"},
         {"name":"Devon Costello"}
@@ -8,5 +8,8 @@
     "release": "Lorem lorem, ipsum ipsum, everything everything",
     "works": ["Bed", "Table", "Spill", "Doodad"],
     "openingDate":"03/16/14",
-    "closingDate":"04/03/14"
+    "closingDate":"04/03/14",
+    "images":[
+        {"src":"second-bedroom.jpg", "title":"Second Bedroom Invitation"}
+    ]
 }

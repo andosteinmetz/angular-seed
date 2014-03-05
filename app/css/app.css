@@ -1,5 +1,10 @@
 /* app css stylesheet */
 
+body{
+    font-family: Arial;
+    color: #333;
+}
+
 .menu {
   list-style: none;
   border-bottom: 0.1em solid black;
@@ -27,4 +32,17 @@
 .menu > li:nth-child(1):before {
   content: "";
   padding: 0;
+}
+
+li{
+    list-style: none;
+}
+
+ul{
+    padding-left: 0;
+}
+
+div{
+    padding: 5px 0;
+    border-bottom: 1px solid #ececec;
 }

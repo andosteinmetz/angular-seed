@@ -28,8 +28,8 @@
  },
 
  {
-     "id": "extra-bedroom",
-     "title": "Extra Bedroom",
+     "id": "second-bedroom",
+     "title": "Second Bedroom",
      "artists": [
          {"name":"Jojo Li"},
          {"name":"Devon Costello"}
