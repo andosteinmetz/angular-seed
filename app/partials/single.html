@@ -1,3 +1,4 @@
 <h1>{{show.title}}</h1>
 <strong ng-repeat="artist in show.artists">{{artist.name}}{{$last ? '' : ', '}}</strong>
 <p>{{show.release}}</p>
+<img ng-repeat="image in show.images" src="" ng-src="img/{{image.src}}" title="image.title">
