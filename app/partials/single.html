@@ -1,5 +1,17 @@
-<h1>{{show.title}}</h1>
-<strong ng-repeat="artist in show.artists">{{artist.name}}{{$last ? '' : ', '}}</strong>
-<p>{{show.opening | date : 'MMMM dd'}} - {{show.closing | date : 'MMMM dd, yyyy'}}</p>
-<p>{{show.release}}</p>
-<img ng-repeat="image in show.images" src="" ng-src="img/{{image.src}}" title="{{image.title}}" alt="{{image.title}}">
+<div class="row">
+    <div class="col col-12">
+        <h1>{{show.title}}</h1>
+        <strong ng-repeat="artist in show.artists">{{artist.name}}{{$last ? '' : ', '}}</strong>
+        <p>{{show.opening | date : 'MMMM dd'}} - {{show.closing | date : 'MMMM dd, yyyy'}}</p>
+        <p ng-if="show.event"> {{show.event.description}} : {{show.event.date | date}}, {{show.event.time}}</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col col-6">
+        <p>{{show.release}}</p>
+    </div>
+    <div class="col col-6">
+        <img ng-repeat="image in show.images" ng-src="img/{{image.src}}" title="{{image.title}}" alt="{{image.title}}">
+    </div>
+</div>

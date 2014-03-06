@@ -5,10 +5,11 @@
         {"name":"Jojo Li"},
         {"name":"Devon Costello"}
     ],
-    "release": "Lorem lorem, ipsum ipsum, everything everything",
+    "release": "Second Bedroom is a collaborative show by Jojo Li and Devon Costello – an installation comprising distinct works by each artist into a bedroom tableau.",
     "works": ["Bed", "Table", "Spill", "Doodad"],
     "openingDate":"03/16/14",
     "closingDate":"04/03/14",
+    "event": {"description":"Opening reception", "date":"2014-03-16", "time":"5pm"},
     "images":[
         {"src":"second-bedroom.jpg", "title":"Second Bedroom Invitation"}
     ]
