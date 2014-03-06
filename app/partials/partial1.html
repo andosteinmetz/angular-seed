@@ -1,10 +1,23 @@
+<div ng-if="currentShows">
 <h3>Currently On View</h3>
-
+  <ul>
+    <li ng-repeat="show in currentShows">{{show.title}}</li>
+  </ul>
+  <hr>
+</div>
 <h3>Upcoming Shows</h3>
     <ul>
-    <li ng-repeat="show in shows">
-        <h4><a ng-href="#/show/{{show.id}}">{{show.title}}</a>, {{show.openingDate}} - {{show.closingDate}}</h4>
+    <li ng-repeat="show in upcomingShows">
         <strong ng-repeat="artist in show.artists">{{artist.name}}{{$last ? '' :', '}}</strong>
+        <h4><a ng-href="#/show/{{show.id}}">{{show.title}}</a>, {{show.openingDate}} - {{show.closingDate}}</h4>
+        <p>Today: {{today}}</p>
     </li>
+    <hr>
     </ul>
 <h3>Past Shows</h3>
+  <ul>
+    <li ng-repeat="show in previousShows | orderBy : jsOpening : reverse">
+      <h4><a ng-href="#/show/{{show.id}}">{{show.title}}</a>, {{show.openingDate}} - {{show.closingDate}}</h4>
+      <p>Today: {{today}}</p>
+    </li>
+  </ul>
