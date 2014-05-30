@@ -10,13 +10,33 @@ angular.module('myApp.directives', []).
     };
   }])
 
-  .directive('theClock', ['$timeout', function($timeout) {
-  		$timeout(function(){
-  			var myDate = new Date();
-			//var myFormattedDate = myDate.format('mm/dd/yyyy hh:mm:ss');
-			//return myFormattedDate;
-  		}, 1000);
-  		return {
-  			template: '<h3>Hi Hi Hi</h3>'
+  .directive('myCurrentTime', function($interval, dateFilter) {
+  		function link(scope, element, attrs) {
+  			var format;
+  			var	intervalId;
+
+  			function updateTime(){
+  				element.text(dateFilter(new Date(), 'h:mm:ss'));
+  			}
+
+  			scope.$watch(attrs.myCurrentTime, function(value){
+  				format = value;
+  				updateTime();
+  			});
+
+  			function updater(){
+  				intervalId = $interval(function(){
+  					updateTime();
+  				}, 1000);
+  			}
+
+  			element.bind('$destroy', function(){
+  				$interval.cancel(intervalId);
+  			});
+
+  			updater();
   		}
-  }]);
+  		return {
+  			link: link
+  		}
+  });
