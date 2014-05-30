@@ -3,8 +3,10 @@
 /* Controllers */
 
 angular.module('myApp.controllers', []).
-  controller('MyCtrl1', ['$scope', '$http', 'dateFormatter', function($scope, $http, dateFormatter) {
+  controller('MyCtrl1', ['$scope', '$http', '$interval', 'dateFormatter', function($scope, $http, $interval, dateFormatter, theClock, galllClock) {
         $scope.today = new Date();
+        $interval(function(){$scope.currentTime = new Date()}, 1000);
+        
         $http.get('shows/shows.json').success(function(data){
             $scope.shows = data;
             $scope.pastShows = [];

@@ -9,6 +9,7 @@ angular.module('myApp.services', []).
   value('version', '0.1');
 
 var myModule = angular.module('myApp');
+
 myModule.factory('dateFormatter', function(){
     var dateFormatter = function(date){
         var formattedDate = new Date(date);
@@ -16,3 +17,14 @@ myModule.factory('dateFormatter', function(){
     }
     return dateFormatter;
 });
+
+myModule.factory('getDateAndTime', function(){
+	var getDateAndTime = function(){
+		var myDate = new Date();
+		var myFormattedDate = myDate.format('mm/dd/yyyy hh:mm:ss');
+		return myFormattedDate;	
+	}
+	return getDateAndTime;
+});
+
+
