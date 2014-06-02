@@ -3,10 +3,14 @@
 /* Controllers */
 
 angular.module('myApp.controllers', []).
-  controller('MyCtrl1', ['$scope', '$http', '$interval', 'dateFormatter', function($scope, $http, $interval, dateFormatter, theClock, galllClock) {
+    controller('headerCtrl', ['$scope', 'dateFormatter', function($scope, dateFormatter){
         $scope.today = new Date();
-        $scope.currentTime = new Date();
-        $interval(function(){$scope.currentTime = new Date()}, 1000);
+    }])
+
+    .controller('MyCtrl1', ['$scope', '$http', '$interval', 'dateFormatter', function($scope, $http, $interval, dateFormatter) {
+        $scope.today = new Date();
+        //$scope.currentTime = new Date();
+        //$interval(function(){$scope.currentTime = new Date()}, 1000);
         
         $http.get('shows/shows.json').success(function(data){
             $scope.shows = data;
@@ -30,7 +34,7 @@ angular.module('myApp.controllers', []).
   }])
 
   .controller('ShowDetailCtrl', ['$scope', '$routeParams', '$http', 'dateFormatter', function($scope, $routeParams, $http, dateFormatter) {
-    $scope.show = $routeParams.showId;
+    //$scope.show = $routeParams.showId;
     $http.get('shows/' + $routeParams.showId + '.json').success(function(data){
         $scope.show = data;
         $scope.show.opening = dateFormatter($scope.show.openingDate);
