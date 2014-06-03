@@ -39,4 +39,55 @@ angular.module('myApp.directives', []).
   		return {
   			link: link
   		}
+  })
+
+  .directive('mySVGCircle', function($interval){
+    function link(scope, element, attrs){
+
+        var radius = 50;
+        var strokeWidth = 4;
+
+        var canvasSize = (radius *2)+(strokeWidth*2);
+        var center = radius + strokeWidth;
+
+        var paper = Raphael(document.getElementById('circle'), canvasSize,canvasSize);
+        var circle = paper.circle(center,center,radius);
+        var secondHand = paper.path("M"+center+" "+center+"L"+center+" "+strokeWidth);
+        var minuteHand = paper.path("M"+center+" "+center+"L"+center+" "+strokeWidth*2);
+        var hourHand = paper.path("M"+center+" "+center+"L"+center+" "+strokeWidth*4);
+
+        secondHand.attr('stroke', '#f00');
+
+        circle.attr('fill', '#fff');
+        circle.attr('stroke', '#000');
+        circle.attr('sroke-width', strokeWidth);
+
+        
+
+        function updateClock(){
+            var d = new Date();
+            var seconds = d.getSeconds();
+            var minutes = d.getMinutes();
+            var hours = d.getHours();
+            if (hours > 12){
+                hours = hours - 12;
+            }
+
+            var secondHandRotation = (seconds/60) * 360;
+            var minuteHandRotation = (minutes/60) * 360;
+            var hourHandRotation = (hours/12) * 360;
+
+            secondHand.transform("r"+secondHandRotation+","+center+","+center);
+            minuteHand.transform("r"+minuteHandRotation+","+center+","+center);
+            hourHand.transform("r"+hourHandRotation+","+center+","+center);
+        }
+
+        $interval(function(){
+            updateClock();
+        }, 1000);
+
+    }
+    return {
+        link: link
+    }
   });

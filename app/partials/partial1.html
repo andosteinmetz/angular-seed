@@ -1,9 +1,6 @@
+<div ng-include src="'partials/header.html'" ng-controller="headerCtrl" ></div>
 <div class="row">
     <div class="col col12">
-        <div>Today: {{today | date : 'MMMM d, yyyy'}}</div>
-        <!--<div>Now: {{currentTime | date : 'h:mm:ss'}}</div>-->
-        <div>Time: <span my-current-time></span></div>
-        <div the-clock></div>
         <div ng-if="currentShows">
             <h3>Currently On View</h3>
             <ul class="current-shows">

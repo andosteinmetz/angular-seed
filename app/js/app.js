@@ -10,6 +10,7 @@ angular.module('myApp', [
   'myApp.directives',
   'myApp.controllers'
 ]).
+
 config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/shows', {templateUrl: 'partials/partial1.html', controller: 'MyCtrl1'});
   $routeProvider.when('/show/:showId', {templateUrl: 'partials/single.html', controller: 'ShowDetailCtrl'});
