@@ -35,5 +35,6 @@ angular.module('myApp.controllers', []).
         $scope.show = data;
         $scope.show.opening = dateFormatter($scope.show.openingDate);
         $scope.show.closing = dateFormatter($scope.show.closingDate);
+
     });
   }]);

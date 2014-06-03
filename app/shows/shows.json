@@ -38,6 +38,14 @@
      "works": ["Bed", "Table", "Spill", "Doodad"],
      "openingDate":"2014-03-16",
      "closingDate":"2014-04-05"
+},
+
+{
+    "id":"announcement",
+    "title":"Announcement - Gallleryy is on hiatus while we seek a new space",
+    "release":"Gallleryy sorry to announce that it is currently inactive, while it seeks a new home. Thanks to the artists for showing such exceptional work, and to everybody who came out for bringing such good vibes to the space. Stay tuned...",
+    "openingDate":"2120-01-01",
+    "closingDate":"2120-01-02"
 }
  
- ]
+]

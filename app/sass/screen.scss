@@ -6,6 +6,65 @@
 @import "compass/reset";
 
 body{
-	background: #000;
-	color: #fff;
+  font-family: Arial;
+  color: #333;
+  line-height: 1.6em;
+  .menu {
+    list-style: none;
+    border-bottom: 0.1em solid black;
+    margin-bottom: 2em;
+    padding: 0 0 0.5em;
+    &::before{
+      content: "[";
+    }
+    &::after{
+      content: "]";
+    }
+  }
+
+  li{
+    list-style: none;
+    &.show{
+      margin-bottom: 1em;
+    }
+  }
+
+
+  div{
+    padding: 5px 0;
+    /*border-bottom: 1px solid #ececec;*/
+  }
+
+  p{font-family: Georgia; line-height: 1.6em;}
+
+  a{color: #333; text-decoration: underline}
+
+  .row{
+    width: 95%;
+    margin: 0 auto;
+    text-align: justify;
+    text-justify: distribute-all-lines;
+  }
+
+  .row::after{
+    display: inline-block;
+    width: 100%;
+    height: 0;
+    line-height: 0;
+    font-size: 0;
+    content: "";
+  }
+
+  .col-6{
+    width: 48%;
+  }
+
+  @media screen and (max-width: 960px){
+    .col-6{
+      width: 100%;
+    }
+  }
+
+  img{max-width: 100%;}
+
 }
