@@ -41,10 +41,11 @@ angular.module('myApp.directives', []).
   		}
   })
 
-  .directive('mySVGCircle', function($interval){
+  .directive('myClock', function($interval){
     function link(scope, element, attrs){
 
         var intervalId;
+        var myElementId = element[0].id;
 
         //time variables
         var seconds;
@@ -56,13 +57,17 @@ angular.module('myApp.directives', []).
         var strokeWidth = 4;
         var canvasSize = (radius *2)+(strokeWidth*2);
         var center = radius + strokeWidth;
-
-        //clock definitions
-        var paper = Raphael(document.getElementById('circle'), canvasSize,canvasSize);
+        var paper = Raphael(document.getElementById(myElementId), canvasSize,canvasSize);
         var circle = paper.circle(center,center,radius);
-        var secondHand = paper.path("M"+ center + " "+ center +"L"+ center +" "+ strokeWidth);
-        var minuteHand = paper.path("M"+ center + " " + center +"L"+ center +" "+ strokeWidth*2);
-        var hourHand = paper.path("M"+center+" "+ center +"L"+ center +" "+ strokeWidth*4);
+        var secondHand = paper.path("M"+ center + " "+ (center + strokeWidth*3) +"L"+ center +" "+ strokeWidth);
+        var minuteHand = paper.path("M"+ center + " " + (center + strokeWidth*2) +"L"+ center +" "+ strokeWidth*2);
+        var hourHand = paper.path("M"+ center +" "+ (center + strokeWidth *1) +"L"+ center +" "+ strokeWidth*6);
+
+        secondHand.attr('stroke', '#f00');
+        hourHand.attr('stroke-width', 2);
+        circle.attr('fill', '#fff');
+        circle.attr('stroke', '#000');
+        circle.attr('sroke-width', strokeWidth);
 
         function drawTickMark(deg){
             var mark = paper.path("M"+ center +" "+ strokeWidth*2 +"L"+ center +" "+ strokeWidth*3);
@@ -78,11 +83,6 @@ angular.module('myApp.directives', []).
         }
 
         tickMarks();
-
-        secondHand.attr('stroke', '#f00');
-        circle.attr('fill', '#fff');
-        circle.attr('stroke', '#000');
-        circle.attr('sroke-width', strokeWidth);
 
         function updateClock(){
             var d = new Date();
@@ -124,4 +124,66 @@ angular.module('myApp.directives', []).
     return {
         link: link
     }
-  });
+  })
+
+  .directive('myDoodle', function($interval){
+        function link(scope, element, attrs){
+
+            var intervalId;
+            var myElementId = element[0].id;
+
+            var radius = 50;
+            var strokeWidth = 4;
+            var canvasSize = (radius *2)+(strokeWidth*2);
+            var center = radius + strokeWidth;
+            var paper = Raphael(document.getElementById(myElementId), canvasSize,canvasSize);
+            var circle = paper.circle(center,center,radius);
+
+            function drawLine(deg){
+                var mark = paper.path("M"+ center +" "+ strokeWidth +"L"+ strokeWidth +" "+ center);
+                mark.attr("stroke", "#666")
+                mark.transform("r"+ deg +","+ center +","+ center);
+            }
+
+            function myRectangle(){
+                paper.rect(strokeWidth, strokeWidth, radius*2, radius*2);
+            }
+
+            function inscribeRectangle(rotation){
+                var inscribed = paper.path("M"+ center +" "+ strokeWidth +"L"+ (canvasSize - strokeWidth) + " "+ center + "L" + center +" " + (canvasSize - strokeWidth) +"L"+ strokeWidth +" "+ center+"Z closepath");
+                inscribed.attr('fill', '#ff0000');
+                inscribed.attr('fill-opacity', .125);
+                inscribed.attr('stroke-opacity',.125);
+                inscribed.attr('stroke', '#ff0000');
+                if(rotation){
+                    inscribed.transform("r"+ rotation +","+ center +","+ center);
+                }
+            }
+
+            function lines(){
+                for(var i = 0; i < 12; i++){
+                    var deg = i * 30;
+                    drawLine(deg);
+                }
+            }
+
+            function radiateRect(num){
+                var degree = 360/num;
+                for(var i = 0; i < num; i++){
+                    var rotation = i * degree;
+                    inscribeRectangle(rotation);
+                }
+            }
+
+            //lines();
+
+            //myRectangle();
+            //inscribeRectangle();
+            radiateRect(12);
+        }
+
+        return {
+            link: link
+        }
+
+    });
