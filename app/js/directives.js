@@ -145,10 +145,6 @@ angular.module('myApp.directives', []).
                 mark.transform("r"+ deg +","+ center +","+ center);
             }
 
-            function myRectangle(){
-                paper.rect(strokeWidth, strokeWidth, radius*2, radius*2);
-            }
-
             function inscribeRectangle(rotation){
                 var inscribed = paper.path("M"+ center +" "+ strokeWidth +"L"+ (canvasSize - strokeWidth) + " "+ center + "L" + center +" " + (canvasSize - strokeWidth) +"L"+ strokeWidth +" "+ center+"Z closepath");
                 inscribed.attr('fill', '#ff0000');
@@ -167,17 +163,15 @@ angular.module('myApp.directives', []).
                 }
             }
 
-            function radiateRect(num){
-                var degree = 360/num;
-                for(var i = 0; i < num; i++){
+            function radiateRect(num) {
+                var degree = 360 / num;
+                for (var i = 0; i < num; i++) {
                     var rotation = i * degree;
                     inscribeRectangle(rotation);
                 }
             }
 
             //lines();
-
-            //myRectangle();
             //inscribeRectangle();
             radiateRect(12);
         }
