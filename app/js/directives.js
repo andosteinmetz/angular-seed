@@ -132,12 +132,16 @@ angular.module('myApp.directives', []).
             var intervalId;
             var myElementId = element[0].id;
 
-            var radius = 50;
+            var radius = 250;
             var strokeWidth = 4;
             var canvasSize = (radius *2)+(strokeWidth*2);
             var center = radius + strokeWidth;
             var paper = Raphael(document.getElementById(myElementId), canvasSize,canvasSize);
-            var circle = paper.circle(center,center,radius);
+
+            function drawCircle(center, radius){
+                var circle = paper.circle(center,center,radius);
+            }
+
 
             function drawLine(deg){
                 var mark = paper.path("M"+ center +" "+ strokeWidth +"L"+ strokeWidth +" "+ center);
@@ -145,12 +149,12 @@ angular.module('myApp.directives', []).
                 mark.transform("r"+ deg +","+ center +","+ center);
             }
 
-            function inscribeRectangle(rotation){
+            function inscribeRectangle(rotation, color){
                 var inscribed = paper.path("M"+ center +" "+ strokeWidth +"L"+ (canvasSize - strokeWidth) + " "+ center + "L" + center +" " + (canvasSize - strokeWidth) +"L"+ strokeWidth +" "+ center+"Z closepath");
                 inscribed.attr('fill', '#00aaaa');
-                inscribed.attr('fill-opacity', .125);
+                inscribed.attr('fill-opacity', .0125);
                 inscribed.attr('stroke-opacity',.125);
-                inscribed.attr('stroke', '#ff0000');
+                inscribed.attr('stroke', '#00aaaa');
                 if(rotation){
                     inscribed.transform("r"+ rotation +","+ center +","+ center);
                 }
@@ -171,14 +175,14 @@ angular.module('myApp.directives', []).
                 }
             }
 
-            function animateRect(num){
-                var deg = 360/num;
+            function animateRect(count){
+                var deg = 360/count;
                 var i = 0;
                 function iterateRect(i){
                     var rotation = deg * i;
                     inscribeRectangle(rotation);
                     i++;
-                    if(i < num){
+                    if(i < count){
                         setTimeout(function(){
                             iterateRect(i)
                         }, 100);
@@ -190,7 +194,7 @@ angular.module('myApp.directives', []).
             //lines();
             //inscribeRectangle();
             //radiateRect(12);
-            animateRect(16);
+            animateRect(48);
         }
 
         return {
