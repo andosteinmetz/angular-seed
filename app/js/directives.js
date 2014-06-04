@@ -62,13 +62,14 @@ angular.module('myApp.directives', []).
         circle.attr('stroke', '#000');
         circle.attr('sroke-width', strokeWidth);
 
-        
+
 
         function updateClock(){
             var d = new Date();
             var seconds = d.getSeconds();
             var minutes = d.getMinutes();
             var hours = d.getHours();
+            hours = hours + (minutes/60);
             if (hours > 12){
                 hours = hours - 12;
             }
@@ -81,6 +82,8 @@ angular.module('myApp.directives', []).
             minuteHand.transform("r"+minuteHandRotation+","+center+","+center);
             hourHand.transform("r"+hourHandRotation+","+center+","+center);
         }
+
+        updateClock();
 
         $interval(function(){
             updateClock();
