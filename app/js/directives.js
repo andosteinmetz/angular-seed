@@ -127,7 +127,7 @@ angular.module('myApp.directives', []).
     })
 
     .directive('myDoodle', function($interval){
-        function link(scope, element, attrs){
+        function link($scope, element, attrs){
 
             var intervalId;
             var myElementId = element[0].id;
@@ -194,7 +194,8 @@ angular.module('myApp.directives', []).
             //lines();
             //inscribeRectangle();
             //radiateRect(12);
-            animateRect(48);
+            var myCount = $scope.count;
+            animateRect(myCount);
         }
 
         return {

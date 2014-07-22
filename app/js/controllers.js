@@ -9,8 +9,7 @@ angular.module('myApp.controllers', []).
 
     .controller('MyCtrl1', ['$scope', '$http', '$interval', 'dateFormatter', function($scope, $http, $interval, dateFormatter) {
         $scope.today = new Date();
-        //$scope.currentTime = new Date();
-        //$interval(function(){$scope.currentTime = new Date()}, 1000);
+        $scope.count = 36;
         
         $http.get('shows/shows.json').success(function(data){
             $scope.shows = data;
