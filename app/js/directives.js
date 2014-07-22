@@ -126,17 +126,23 @@ angular.module('myApp.directives', []).
         }
     })
 
-    .directive('myDoodle', function($interval){
+    .directive('myDoodle', function(){
+
+        function clearPaper(paper){
+            var paperDom = paper.canvas;
+            paperDom.parentNode.removeChild(paperDom);
+        }
+
         function link($scope, element, attrs){
 
             var intervalId;
-            var myElementId = element[0].id;
+            var myElement = element[0];
 
             var radius = 250;
             var strokeWidth = 4;
             var canvasSize = (radius *2)+(strokeWidth*2);
             var center = radius + strokeWidth;
-            var paper = Raphael(document.getElementById(myElementId), canvasSize,canvasSize);
+            var paper = Raphael(myElement, canvasSize,canvasSize);
 
             function drawCircle(center, radius){
                 var circle = paper.circle(center,center,radius);
@@ -176,6 +182,7 @@ angular.module('myApp.directives', []).
             }
 
             function animateRect(count){
+                paper.clear();
                 var deg = 360/count;
                 var i = 0;
                 function iterateRect(i){
@@ -190,12 +197,10 @@ angular.module('myApp.directives', []).
                 }
                 iterateRect(i);
             }
-
-            //lines();
-            //inscribeRectangle();
-            //radiateRect(12);
             var myCount = $scope.count;
-            animateRect(myCount);
+            $scope.$watch('count', function(){
+                animateRect($scope.count);
+            });
         }
 
         return {

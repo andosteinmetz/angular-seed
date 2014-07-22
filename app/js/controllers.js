@@ -5,11 +5,12 @@
 angular.module('myApp.controllers', []).
     controller('headerCtrl', ['$scope', 'dateFormatter', function($scope, dateFormatter){
         $scope.today = new Date();
+        $scope.count = 36;
     }])
 
     .controller('MyCtrl1', ['$scope', '$http', '$interval', 'dateFormatter', function($scope, $http, $interval, dateFormatter) {
         $scope.today = new Date();
-        $scope.count = 36;
+
         
         $http.get('shows/shows.json').success(function(data){
             $scope.shows = data;
