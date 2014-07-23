@@ -38,7 +38,7 @@ angular.module('myApp.directives', []).
         }
         return {
             link: link
-        }
+        };
     })
 
     .directive('myClock', function($interval){
@@ -71,7 +71,7 @@ angular.module('myApp.directives', []).
 
             function drawTickMark(deg){
                 var mark = paper.path("M"+ center +" "+ strokeWidth*2 +"L"+ center +" "+ strokeWidth*3);
-                mark.attr("stroke", "#666")
+                mark.attr("stroke", "#666");
                 mark.transform("r"+ deg +","+ center +","+center);
             }
 
@@ -100,11 +100,10 @@ angular.module('myApp.directives', []).
                 var minuteHandRotation = (minutes/60) * 360;
                 var hourHandRotation = (hours/12) * 360;
 
-                var nextSecond = (( seconds +1)/60) * 360;
-
                 secondHand.transform("r"+ secondHandRotation +","+center+","+ center);
 
                 //move second hand continuously
+                //var nextSecond = (( seconds +1)/60) * 360;
                 //secondHand.animate({transform: "r"+nextSecond+","+center+","+center}, 1000);
                 minuteHand.transform("r"+ minuteHandRotation +","+ center +","+ center);
                 hourHand.transform("r"+ hourHandRotation +","+ center +","+ center);
@@ -123,21 +122,14 @@ angular.module('myApp.directives', []).
         }
         return {
             link: link
-        }
+        };
     })
 
     .directive('myDoodle', function(){
-
-        function clearPaper(paper){
-            var paperDom = paper.canvas;
-            paperDom.parentNode.removeChild(paperDom);
-        }
-
         function link($scope, element, attrs){
 
-            var intervalId;
             var myElement = element[0];
-
+            // TODO - MAKE SEPARATE RADIUS FOR EACH Rotator
             var radius = 250;
             var strokeWidth = 4;
             var canvasSize = (radius *2)+(strokeWidth*2);
@@ -151,16 +143,19 @@ angular.module('myApp.directives', []).
 
             function drawLine(deg){
                 var mark = paper.path("M"+ center +" "+ strokeWidth +"L"+ strokeWidth +" "+ center);
-                mark.attr("stroke", "#666")
+                mark.attr("stroke", "#666");
                 mark.transform("r"+ deg +","+ center +","+ center);
             }
 
-            function inscribeRectangle(rotation, color){
+            function inscribeRectangle(rotation, vars){
                 var inscribed = paper.path("M"+ center +" "+ strokeWidth +"L"+ (canvasSize - strokeWidth) + " "+ center + "L" + center +" " + (canvasSize - strokeWidth) +"L"+ strokeWidth +" "+ center+"Z closepath");
-                inscribed.attr('fill', '#00aaaa');
-                inscribed.attr('fill-opacity', .0125);
-                inscribed.attr('stroke-opacity',.125);
-                inscribed.attr('stroke', '#00aaaa');
+
+                var myColor = vars.color ? vars.color : '#00aaaa';
+                var myOpacity = vars.opacity ? vars.opacity : 0.125;
+                inscribed.attr('fill', myColor);
+                inscribed.attr('fill-opacity', myOpacity/10);
+                inscribed.attr('stroke-opacity',myOpacity);
+                inscribed.attr('stroke', myColor);
                 if(rotation){
                     inscribed.transform("r"+ rotation +","+ center +","+ center);
                 }
@@ -180,31 +175,40 @@ angular.module('myApp.directives', []).
                     inscribeRectangle(rotation);
                 }
             }
-
-            function animateRect(count){
+            var myTimeout;
+            function animateRect(count, options){
                 paper.clear();
+                var myColor = options && options.color ? options.color : "#0000ff";
                 var deg = 360/count;
                 var i = 0;
                 function iterateRect(i){
                     var rotation = deg * i;
-                    inscribeRectangle(rotation);
+                    //var opacity = 1/count;
+                    inscribeRectangle(rotation, {color: myColor});
                     i++;
                     if(i < count){
-                        setTimeout(function(){
-                            iterateRect(i)
+                        myTimeout = setTimeout(function(){
+                            iterateRect(i);
                         }, 100);
                     }
                 }
                 iterateRect(i);
             }
-            var myCount = $scope.count;
             $scope.$watch('count', function(){
-                animateRect($scope.count);
+                clearTimeout(myTimeout);
+                animateRect($scope.count, {color: "#00ffff"});
+                animateRect($scope.count2, {color:'#ff0000'});
             });
         }
 
         return {
             link: link
-        }
+        };
 
+    })
+
+    .directive('mouser', function(){
+        function link($scope, element, attrs){
+            var myEl = element[0];
+        }
     });
