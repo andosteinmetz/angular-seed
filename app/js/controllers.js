@@ -6,7 +6,7 @@ angular.module('myApp.controllers', []).
     controller('headerCtrl', ['$scope', 'dateFormatter', function($scope, dateFormatter){
         $scope.today = new Date();
         $scope.count = 7;
-        $scope.count2 = 3;
+        $scope.count2 = null;
     }])
 
     .controller('MyCtrl1', ['$scope', '$http', '$interval', 'dateFormatter', function($scope, $http, $interval, dateFormatter) {

@@ -53,6 +53,8 @@ angular.module('myApp.directives', []).
             var hours;
 
             //clock variables
+            // TODO - PUT THIS DATA IN THE MODEL, WHERE IT BELONGS
+            // TODO - do the drawing functions belong in the model???
             var radius = 50;
             var strokeWidth = 4;
             var canvasSize = (radius *2)+(strokeWidth*2);
@@ -136,11 +138,6 @@ angular.module('myApp.directives', []).
             var center = radius + strokeWidth;
             var paper = Raphael(myElement, canvasSize,canvasSize);
 
-            function drawCircle(center, radius){
-                var circle = paper.circle(center,center,radius);
-            }
-
-
             function drawLine(deg){
                 var mark = paper.path("M"+ center +" "+ strokeWidth +"L"+ strokeWidth +" "+ center);
                 mark.attr("stroke", "#666");
@@ -159,6 +156,7 @@ angular.module('myApp.directives', []).
                 if(rotation){
                     inscribed.transform("r"+ rotation +","+ center +","+ center);
                 }
+                return(inscribed);
             }
 
             function lines(){
@@ -175,16 +173,19 @@ angular.module('myApp.directives', []).
                     inscribeRectangle(rotation);
                 }
             }
+
             var myTimeout;
+
             function animateRect(count, options){
                 paper.clear();
+                var st = paper.set();
                 var myColor = options && options.color ? options.color : "#0000ff";
                 var deg = 360/count;
                 var i = 0;
                 function iterateRect(i){
                     var rotation = deg * i;
                     //var opacity = 1/count;
-                    inscribeRectangle(rotation, {color: myColor});
+                    st.push( inscribeRectangle(rotation, {color: myColor}) );
                     i++;
                     if(i < count){
                         myTimeout = setTimeout(function(){
@@ -193,10 +194,11 @@ angular.module('myApp.directives', []).
                     }
                 }
                 iterateRect(i);
+                console.log(st);
             }
             $scope.$watch('count', function(){
                 clearTimeout(myTimeout);
-                animateRect($scope.count, {color: "#00ffff"});
+                animateRect($scope.count, {color: "#0077ff"});
                 animateRect($scope.count2, {color:'#ff0000'});
             });
         }
