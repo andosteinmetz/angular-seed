@@ -127,6 +127,7 @@ angular.module('myApp.directives', []).
         };
     })
 
+
     .directive('myDoodle', function(){
         function link($scope, element, attrs){
 
@@ -138,15 +139,27 @@ angular.module('myApp.directives', []).
             var center = radius + strokeWidth;
             var paper = Raphael(myElement, canvasSize,canvasSize);
 
-            function drawLine(deg){
+            function Rotor(options){
+                this.options = options;
+                this.st = paper.set();
+            }
+
+            Rotor.prototype.drawLine = function(deg){
                 var mark = paper.path("M"+ center +" "+ strokeWidth +"L"+ strokeWidth +" "+ center);
                 mark.attr("stroke", "#666");
                 mark.transform("r"+ deg +","+ center +","+ center);
+            };
+
+            Rotor.prototype.lines = function(){
+                for(var i = 0; i < 12; i++){
+                    var deg = i * 30;
+                    drawLine(deg);
+                }
             }
 
-            function inscribeRectangle(rotation, vars){
+            Rotor.prototype.inscribeRectangle = function(rotation, vars){
                 var inscribed = paper.path("M"+ center +" "+ strokeWidth +"L"+ (canvasSize - strokeWidth) + " "+ center + "L" + center +" " + (canvasSize - strokeWidth) +"L"+ strokeWidth +" "+ center+"Z closepath");
-
+//
                 var myColor = vars.color ? vars.color : '#00aaaa';
                 var myOpacity = vars.opacity ? vars.opacity : 0.125;
                 inscribed.attr('fill', myColor);
@@ -157,49 +170,97 @@ angular.module('myApp.directives', []).
                     inscribed.transform("r"+ rotation +","+ center +","+ center);
                 }
                 return(inscribed);
-            }
+            };
 
-            function lines(){
-                for(var i = 0; i < 12; i++){
-                    var deg = i * 30;
-                    drawLine(deg);
-                }
-            }
-
-            function radiateRect(num) {
+            Rotor.prototype.radiateRect = function(num) {
                 var degree = 360 / num;
+                var self = this;
                 for (var i = 0; i < num; i++) {
                     var rotation = i * degree;
-                    inscribeRectangle(rotation);
+                    self.inscribeRectangle(rotation);
                 }
-            }
+            };
 
-            var myTimeout;
-
-            function animateRect(count, options){
-                paper.clear();
-                var st = paper.set();
+            Rotor.prototype.animateRect = function(count, options) {
+                for (i = 0; i < this.st.length; i++){
+                    var el = this.st[i];
+                    el.remove();
+                }
+                this.stopTimeout();
+                //var st = paper.set();
                 var myColor = options && options.color ? options.color : "#0000ff";
-                var deg = 360/count;
+                var deg = 360 / count;
                 var i = 0;
-                function iterateRect(i){
+                var self = this;
+                function iterateRect(i) {
                     var rotation = deg * i;
                     //var opacity = 1/count;
-                    st.push( inscribeRectangle(rotation, {color: myColor}) );
+                    self.st.push(self.inscribeRectangle(rotation, {color: myColor}));
                     i++;
-                    if(i < count){
-                        myTimeout = setTimeout(function(){
+                    if (i < count) {
+                        self.myTimeout = setTimeout(function () {
                             iterateRect(i);
                         }, 100);
                     }
                 }
+//
                 iterateRect(i);
-                console.log(st);
-            }
+                console.log(this.st);
+            };
+
+            Rotor.prototype.stopTimeout = function(){
+                clearTimeout(this.myTimeout);
+            };
+
+            //Rotor.prototype.animateRect = function(count, options) {
+            //    var myTimeout;
+            //    if(st){st.empty();}
+            //    var st = paper.set();
+            //    var myColor = options && options.color ? options.color : "#0000ff";
+            //    var deg = 360 / count;
+            //    var i = 0;
+
+            //    function iterateRect(i) {
+            //        var rotation = deg * i;
+            //        //var opacity = 1/count;
+            //        st.push(Rotor.prototype.inscribeRectangle(rotation, {color: myColor}));
+            //        i++;
+            //        if (i < count) {
+            //            this.myTimeout = setTimeout(function () {
+            //                iterateRect(i);
+            //            }, 100);
+            //        }
+            //    }
+
+            //    iterateRect(i);
+            //    console.log(st);
+            //};
+
+            //Rotor.prototype.inscribeRectangle = function(rotation, vars){
+            //    var inscribed = paper.path("M"+ center +" "+ strokeWidth +"L"+ (canvasSize - strokeWidth) + " "+ center + "L" + center +" " + (canvasSize - strokeWidth) +"L"+ strokeWidth +" "+ center+"Z closepath");
+
+            //    var myColor = vars.color ? vars.color : '#00aaaa';
+            //    var myOpacity = vars.opacity ? vars.opacity : 0.125;
+            //    inscribed.attr('fill', myColor);
+            //    inscribed.attr('fill-opacity', myOpacity/10);
+            //    inscribed.attr('stroke-opacity',myOpacity);
+            //    inscribed.attr('stroke', myColor);
+            //    if(rotation){
+            //        inscribed.transform("r"+ rotation +","+ center +","+ center);
+            //    }
+            //    return(inscribed);
+            //};
+
+            //Rotor.prototype.stopTimeout = function(){
+            //    clearTimeout(this.myTimeout);
+            //};
+
+            var myRotor = new Rotor();
+
             $scope.$watch('count', function(){
-                clearTimeout(myTimeout);
-                animateRect($scope.count, {color: "#0077ff"});
-                animateRect($scope.count2, {color:'#ff0000'});
+
+                myRotor.animateRect($scope.count, {color: "#0077ff"});
+                //animateRect($scope.count2, {color:'#ff0000'});
             });
         }
 
