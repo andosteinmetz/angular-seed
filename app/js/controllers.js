@@ -6,7 +6,19 @@ angular.module('myApp.controllers', []).
     controller('headerCtrl', ['$scope', 'dateFormatter', function($scope, dateFormatter){
         $scope.today = new Date();
         $scope.count = 7;
-        $scope.count2 = null;
+        $scope.count2 = 5;
+        $scope.rotors = [
+            {
+            count : 11,
+            color: '#0000ff',
+            opacity: 0.125
+            },
+            {
+                count: 7,
+                color: "#ff0000",
+                opacity: 0.125
+            }
+        ];
     }])
 
     .controller('MyCtrl1', ['$scope', '$http', '$interval', 'dateFormatter', function($scope, $http, $interval, dateFormatter) {
