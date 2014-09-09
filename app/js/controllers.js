@@ -9,12 +9,12 @@ angular.module('myApp.controllers', []).
         $scope.count2 = 5;
         $scope.rotors = [
             {
-            count : 11,
+            count : 39.5,
             color: '#0000ff',
             opacity: 0.125
             },
             {
-                count: 7,
+                count: 13.666667,
                 color: "#ff0000",
                 opacity: 0.125
             }
