@@ -5,18 +5,17 @@
 angular.module('myApp.controllers', []).
     controller('headerCtrl', ['$scope', 'dateFormatter', function($scope, dateFormatter){
         $scope.today = new Date();
-        $scope.count = 7;
-        $scope.count2 = 5;
         $scope.rotors = [
             {
-            count : 39.5,
+            count : 0,
             color: '#0000ff',
             opacity: 0.125
             },
             {
-                count: 13.666667,
-                color: "#ff0000",
-                opacity: 0.125
+                count: 16,
+                color: '#f0f',
+                //opacity: 1,
+                radius: 99
             }
         ];
     }])

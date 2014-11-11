@@ -146,11 +146,12 @@ angular.module('myApp.directives', []).
 
             Rotor.prototype.inscribeRectangle = function(rotation,vars){
                 // this draws the base rectangle
-                var inscribed = paper.path("M"+ center +" "+ strokeWidth +"L"+ (canvasSize - strokeWidth) + " "+ center + "L" + center +" " + (canvasSize - strokeWidth) +"L"+ strokeWidth +" "+ center+"Z closepath");
+                var sideLength = vars.radius ? vars.radius*2 : canvasSize;
+                var inscribed = paper.path("M"+ center +" "+ strokeWidth +"L"+ (sideLength - strokeWidth) + " "+ center + "L" + center +" " + (sideLength - strokeWidth) +"L"+ strokeWidth +" "+ center+"Z closepath");
                 var myColor = vars.color ? vars.color : '#00aaaa';
                 var myOpacity = vars.opacity ? vars.opacity : 0.125;
                 inscribed.attr('fill', myColor);
-                inscribed.attr('fill-opacity', myOpacity/10);
+                inscribed.attr('fill-opacity', myOpacity/2);
                 inscribed.attr('stroke-opacity',myOpacity);
                 inscribed.attr('stroke', myColor);
                 if(rotation){
@@ -178,6 +179,8 @@ angular.module('myApp.directives', []).
                 this.stopTimeout();
 
                 var myColor = options && options.color ? options.color : "#0000ff";
+                var myRadius = options && options.radius ? options.radius : 250;
+                var myOpacity = options && options.opacity ? options.opacity : 0.125;
                 var deg = 360 / count;
                 var i = 0;
                 var self = this;
@@ -185,7 +188,7 @@ angular.module('myApp.directives', []).
                 function iterateRect(i) {
                     var rotation = deg * i;
                     if(count > 0){
-                        self.st.push(self.inscribeRectangle(rotation, {color: myColor}));
+                        self.st.push(self.inscribeRectangle(rotation, {color: myColor, radius: myRadius, opacity: myOpacity}));
                         i++;
                         if (i < count) {
                             self.myTimeout = setTimeout(function () {
@@ -227,7 +230,7 @@ angular.module('myApp.directives', []).
         return {
             link: link
         };
-
+        //TODO -  what does this return???
     })
 
     .directive('mouser', function(){
